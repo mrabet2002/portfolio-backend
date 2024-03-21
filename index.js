@@ -1,11 +1,13 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000; // Use environment variable or default port 3000
 
 app.use(express.json()); // Parse incoming JSON data
+app.use(cors()); // Enable CORS for all routes
 
 app.post('/send-mail', async (req, res) => {
     const { email, name, subject, message } = req.body;
@@ -24,8 +26,8 @@ app.post('/send-mail', async (req, res) => {
     });
 
     const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: email,
+        from: email,
+        to: process.env.EMAIL_USER,
         name: name,
         subject: subject,
         text: message // Change to 'html' for HTML emails
