@@ -43,4 +43,8 @@ app.post('/send-mail', async (req, res) => {
     }
 });
 
+app.get('/', (req, res) => {
+    res.send('Welcome to the email server!');
+});
+
 app.listen(port, () => console.log(`Server listening on port ${port}`));
